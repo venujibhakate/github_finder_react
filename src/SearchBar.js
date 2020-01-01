@@ -46,7 +46,7 @@ class SearchBar extends React.Component {
                     </form>
 
                 </Paper>
-                {this.state.profile !== '' && (<Repo profile={this.state.profile} />)}
+                {this.state.profile !== '' && (<Repo {...this.state} />)}
             </div>
 
         )
