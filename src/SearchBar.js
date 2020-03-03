@@ -1,7 +1,8 @@
 import React from 'react';
 import { Paper, TextField } from '@material-ui/core';
-import githubUrl from './githubUrl';
-import Repo from './repo';
+import GithubUrl from './githubUrl';
+import Repo from './repoItem';
+import GithubURL from './GithubURL';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class SearchBar extends React.Component {
         this.state = {
             query: '',
             profile: '',
+            repos:'',
         }
     }
     handleChange = (event) => this.setState({ query: event.target.value })
@@ -20,13 +22,17 @@ class SearchBar extends React.Component {
 
         // onFormSubmit(query);
         event.preventDefault();
-        const response = await githubUrl.get('users', {
+        const response = await GithubUrl.get('users', {
             params: {
                 q: this.state.query,
             },
         });
-        console.log(response)
-        this.setState({ profile: response.data.items });
+   
+
+        
+        const response1 = await GithubURL.get(`/${this.state.query}/repos`);
+        console.log(response1)
+		this.setState({ profile: response.data.items, repo: response1.data});
     };
 
 
